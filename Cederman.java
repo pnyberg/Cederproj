@@ -6,7 +6,7 @@ public class Cederman {
 						SOUTH = 2,
 						WEST = 3;
 
-	private final int size = 20;
+	private final int size = 1;
 	private final int step = 1;
 	private int direction;
 	private int x, y, age;
@@ -16,7 +16,7 @@ public class Cederman {
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
-		this.name = name
+		this.name = name;
 	}
 
 	public void move() {
@@ -32,15 +32,21 @@ public class Cederman {
 
 		changeDirection();
 	}
-
+	public void doStuff() {
+		move();
+		age ++;
+	}
 	public void changeDirection() {
 		direction = (direction + (int)(Math.random() * 10) % 3) % 4;
 	}
 
 	public void paint(Graphics g) {
-		g.setColor(Color.red);
+		/*g.setColor(Color.red);
 		g.fillOval(x, y, size, size);
 		g.setColor(Color.black);
 		g.drawOval(x, y, size, size);
+		*/
+		g.setColor(Color.red);
+		g.drawRect(x, y, size, size);
 	}
 } 

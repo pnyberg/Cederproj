@@ -29,7 +29,7 @@ implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0 ; i < number ; i++)
-			men.get(i).move();
+			men.get(i).doStuff();
 
 		repaint();
 	}
