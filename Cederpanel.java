@@ -19,7 +19,7 @@ implements ActionListener {
 		men = new LinkedList<Cederman>();
 
 		for (int i = 0 ; i < number ; i++) {
-			men.add(new Cederman(70 + (i % 5) * 100, 70 + 100 * (i / 5), (int)(Math.random() * 10) % 4));
+			men.add(new Cederman(70 + (i % 5) * 100, 70 + 100 * (i / 5), (int)(Math.random() * 10) % 4, "Bob"));
 		}
 	}
 
@@ -29,7 +29,7 @@ implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0 ; i < number ; i++)
-			men.get(i).move();
+			men.get(i).doStuff();
 
 		repaint();
 	}
