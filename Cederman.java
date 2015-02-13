@@ -53,6 +53,18 @@ public class Cederman {
 		g.drawRect(x, y, size, size);
 	}
 
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return x;
+	}
+
+	public int getDirection() {
+		return direction;
+	}
+
 	public String getName() {
 		return name;
 	}
