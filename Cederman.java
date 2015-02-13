@@ -47,9 +47,9 @@ public class Cederman {
 
 	public void paint(Graphics g) {
 		/*g.setColor(Color.red);
-		g.fillOval(x, y, size, size);
+		g.fillOval(x y size size);
 		g.setColor(Color.black);
-		g.drawOval(x, y, size, size);
+		g.drawOval(x y size size);
 		*/
 		g.setColor(Color.red);
 		g.drawRect(x, y, size, size);

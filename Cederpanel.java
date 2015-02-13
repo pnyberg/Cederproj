@@ -1,25 +1,16 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.LinkedList;
-import javax.swing.Timer;
+import java.util.Scanner;
 import javax.swing.*;
+import javax.swing.Timer;
 
 public class Cederpanel 
 extends JPanel 
 implements ActionListener {
 	private final int number = 20;
-
-	private static String[] names = {
-		"InteBob", 
-		"InteBobAlls", 
-		"AbsolutInteBob", 
-		"Nej-Herman", 
-		"Clas-Göran", 
-		"Felix-Ketchup", 
-		"Felix-Senap", 
-		"Dolph-Lundgren", 
-		"CederCedersson"
-	};
+	private static final String nameFile = "Cedernames.txt";
 
 	private int width = 800;
 	private int height = 550;
@@ -46,14 +37,14 @@ implements ActionListener {
 		String newName = "";
 
 		while (true) {
-			int lettersFromFirst = (int)(Math.random() * 10) % 5;
+			int lettersFromFirst = (int)(Math.random() * 10) % (name1.length() < 5 ? name1.length() : 5);
 			for (int i = 0 ; i < lettersFromFirst ; i++) {
 				int letterIndex = (int)(Math.random() * 100) % name1.length();
 				newName += name1.charAt(letterIndex);
 				name1 = name1.substring(0, letterIndex) + name1.substring(letterIndex, name1.length());
 			}
 
-			lettersFromFirst = (int)(Math.random() * 10) % 5;
+			lettersFromFirst = (int)(Math.random() * 10) % (name2.length() < 5 ? name2.length() : 5);
 			for (int i = 0 ; i < lettersFromFirst ; i++) {
 				int letterIndex = (int)(Math.random() * 100) % name2.length();
 				newName += name2.charAt(letterIndex);
@@ -76,9 +67,9 @@ implements ActionListener {
 	}
 
 	public static String generateName() {
-		int choice = (int)(Math.random() * 100) % names.length;
+		int choice = (int)(Math.random() * 100) % Cederpanel.names().length;
 
-		return names[choice];
+		return Cederpanel.names()[choice];
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -91,9 +82,32 @@ implements ActionListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(Color.black);
-		g.fillRect(0,0, width, height);
+		g.fillRect(0, 0, width, height);
 
 		for (int i = 0 ; i < number ; i++)
 			men.get(i).paint(g);
+	}
+
+	public static String[] names() {
+		String[] names;
+		
+		try {
+			Scanner scanner = new Scanner(new File(nameFile));
+			LinkedList<String> readNames = new LinkedList<String>();
+
+			while(scanner.hasNext()) {
+				String text = scanner.next();
+				readNames.add(text);
+			}
+
+			names = new String[readNames.size()];
+
+			for (int i = 0 ; i < readNames.size() ; i++) {
+				names[i] = readNames.get(i);
+			}
+		} catch (Exception e) {
+			names = new String[0];
+		}
+		return names;
 	}
 }
