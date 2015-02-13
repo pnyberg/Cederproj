@@ -6,8 +6,13 @@ public class Cederman {
 						SOUTH = 2,
 						WEST = 3;
 
+<<<<<<< HEAD
+	private final int size = 20;
+	private final int step = 5;
+=======
 	private final int size = 1;
 	private final int step = 1;
+>>>>>>> 4e88e494ea4b33a7640e1ebd9bf2fd55b8324a47
 	private int direction;
 	private int x, y, age;
 	private String name;
