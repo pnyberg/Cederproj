@@ -9,20 +9,23 @@ import javax.swing.Timer;
 public class Cederpanel 
 extends JPanel 
 implements ActionListener {
-	private final int number = 20;
+	private final int number = 50;
 	private static final String nameFile = "Cedernames.txt";
 
-	private int width = 800;
-	private int height = 550;
+	private int width;
+	private int height;
 	private Timer timer;
 	private LinkedList<Cederman> men;
 
-	public Cederpanel() {
+	public Cederpanel(int frameWidth, int frameHeight) {
+		width = frameWidth;
+		height = frameHeight - 50;
+
 		timer = new Timer(10, this);
 		men = new LinkedList<Cederman>();
 
 		for (int i = 0 ; i < number ; i++) {
-			men.add(new Cederman(70 + (i % 5) * 100, 70 + 100 * (i / 5), (int)(Math.random() * 10) % 4, Cederpanel.generateName()));
+			men.add(new Cederman((int)(Math.random() * width), (int)(Math.random() * height), (int)(Math.random() * 10) % 4, Cederpanel.generateName()));
 		}
 	}
 
@@ -90,7 +93,7 @@ implements ActionListener {
 
 	public static String[] names() {
 		String[] names;
-		
+
 		try {
 			Scanner scanner = new Scanner(new File(nameFile));
 			LinkedList<String> readNames = new LinkedList<String>();

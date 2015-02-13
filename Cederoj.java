@@ -11,7 +11,7 @@ implements ActionListener {
 	private JButton button;
 
 	public Cederoj() {
-		panel = new Cederpanel();
+		panel = new Cederpanel(frameWidth, frameHeight);
 		button = new JButton("Start");
 
 		button.addActionListener(this);
