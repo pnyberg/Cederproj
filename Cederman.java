@@ -9,12 +9,14 @@ public class Cederman {
 	private final int size = 20;
 	private final int step = 1;
 	private int direction;
-	private int x, y;
+	private int x, y, age;
+	private String name;
 
-	public Cederman(int x, int y, int direction) {
+	public Cederman(int x, int y, int direction, String name) {
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
+		this.name = name
 	}
 
 	public void move() {
