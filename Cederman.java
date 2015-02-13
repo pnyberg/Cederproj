@@ -7,7 +7,7 @@ public class Cederman {
 						WEST = 3;
 
 	private final int size = 20;
-	private final int step = 1;
+	private final int step = 5;
 	private int direction;
 	private int x, y;
 
