@@ -31,13 +31,9 @@ public class Cederman {
 
 		changeDirection();
 	}
-<<<<<<< HEAD
 	public void fightYeBastards(){
 		
 	}
-=======
-
->>>>>>> dc0e97c6ece54f7a7a06183990d1ded91f1d057f
 	public void doStuff() {
 		move();
 		age ++;
