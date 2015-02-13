@@ -16,13 +16,17 @@ implements ActionListener {
 
 	private int width;
 	private int height;
+	private int worldSize = 512;
+
 	private Timer timer;
 	private LinkedList<Cederman> men;
+	public World world;
 
 	public Cederpanel(int frameWidth, int frameHeight) {
 		width = frameWidth;
 		height = frameHeight - 50;
 
+		world = new World(worldSize);
 		men = new LinkedList<Cederman>();
 	}
 
@@ -111,11 +115,17 @@ implements ActionListener {
 	}
 
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		/*super.paintComponent(g);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, width, height);
+<<<<<<< HEAD
 
 		for (int i = 0 ; i < men.size() ; i++)
+=======
+		*/
+		for (int i = 0 ; i < number ; i++)
+>>>>>>> f85064f28347990244ace56333f75eaba07747f5
 			men.get(i).paint(g);
+
 	}
 }
