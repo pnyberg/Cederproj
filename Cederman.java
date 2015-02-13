@@ -5,10 +5,8 @@ public class Cederman {
 						EAST = 1,
 						SOUTH = 2,
 						WEST = 3;
-
 	private final int size = 1;
 	private final int step = 1;
-
 	private int direction;
 	private int x, y, age;
 	private String name;
@@ -32,6 +30,9 @@ public class Cederman {
 		}
 
 		changeDirection();
+	}
+	public void fightYeBastards(){
+		
 	}
 	public void doStuff() {
 		move();
