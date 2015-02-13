@@ -38,7 +38,7 @@ public class Cederman {
 		move();
 		age ++;
 
-		System.out.println(name);
+//		System.out.println(name);
 	}
 
 	public void changeDirection() {
