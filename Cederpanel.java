@@ -57,12 +57,13 @@ implements ActionListener {
 			for (int i = 0 ; i < lettersFromFirst ; i++) {
 				int letterIndex = (int)(Math.random() * 100) % name2.length();
 				newName += name2.charAt(letterIndex);
-				name2 = name1.substring(0, letterIndex) + name1.substring(letterIndex, name2.length());
+				name2 = name2.substring(0, letterIndex) + name2.substring(letterIndex, name2.length());
 			}
 
 			if (newName.length() < 4) {
 				newName = "";
 			} else {
+				newName = newName.substring(0, 1).toUpperCase() + newName.substring(1, newName.length()).toLowerCase();
 				break;
 			}
 		}
