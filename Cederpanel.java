@@ -14,11 +14,14 @@ implements ActionListener {
 
 	private int width = 800;
 	private int height = 550;
+	private int worldSize = 512;
 	private Timer timer;
 	private LinkedList<Cederman> men;
+	public World world;
 
 	public Cederpanel() {
 		timer = new Timer(10, this);
+		world = World()
 		men = new LinkedList<Cederman>();
 
 		for (int i = 0 ; i < number ; i++) {
