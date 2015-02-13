@@ -45,18 +45,26 @@ implements ActionListener {
 
 		String newName = "";
 
-		int lettersFromFirst = (int)(Math.random() * 10) % 5;
-		for (int i = 0 ; i < lettersFromFirst ; i++) {
-			int letterIndex = (int)(Math.random() * 100) % name1.length();
-			newName += name1.charAt(letterIndex);
-			name1 = name1.substring(0, letterIndex) + name1.substring(letterIndex, name1.length());
-		}
+		while (true) {
+			int lettersFromFirst = (int)(Math.random() * 10) % 5;
+			for (int i = 0 ; i < lettersFromFirst ; i++) {
+				int letterIndex = (int)(Math.random() * 100) % name1.length();
+				newName += name1.charAt(letterIndex);
+				name1 = name1.substring(0, letterIndex) + name1.substring(letterIndex, name1.length());
+			}
 
-		lettersFromFirst = (int)(Math.random() * 10) % 5;
-		for (int i = 0 ; i < lettersFromFirst ; i++) {
-			int letterIndex = (int)(Math.random() * 100) % name2.length();
-			newName += name2.charAt(letterIndex);
-			name2 = name1.substring(0, letterIndex) + name1.substring(letterIndex, name2.length());
+			lettersFromFirst = (int)(Math.random() * 10) % 5;
+			for (int i = 0 ; i < lettersFromFirst ; i++) {
+				int letterIndex = (int)(Math.random() * 100) % name2.length();
+				newName += name2.charAt(letterIndex);
+				name2 = name1.substring(0, letterIndex) + name1.substring(letterIndex, name2.length());
+			}
+
+			if (newName.length() < 4) {
+				newName = "";
+			} else {
+				break;
+			}
 		}
 
 		int x = parent1.getX();

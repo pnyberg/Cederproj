@@ -55,6 +55,11 @@ public class Cederman {
 		g.drawRect(x, y, size, size);
 	}
 
+	public void setPosition(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	public int getX() {
 		return x;
 	}
