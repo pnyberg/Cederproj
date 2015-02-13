@@ -23,7 +23,7 @@ implements ActionListener {
 		height = frameHeight - 50;
 
 		timer = new Timer(10, this);
-		world = World(worldSize)
+		world = new World(worldSize);
 		men = new LinkedList<Cederman>();
 
 		for (int i = 0 ; i < number ; i++) {
@@ -88,11 +88,10 @@ implements ActionListener {
 		/*super.paintComponent(g);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, width, height);
-
+		*/
 		for (int i = 0 ; i < number ; i++)
 			men.get(i).paint(g);
-		*/
-		
+
 	}
 
 	public static String[] names() {
