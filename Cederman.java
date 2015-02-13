@@ -31,13 +31,18 @@ public class Cederman {
 
 		changeDirection();
 	}
+<<<<<<< HEAD
 	public void fightYeBastards(){
 		
 	}
+=======
+
+>>>>>>> dc0e97c6ece54f7a7a06183990d1ded91f1d057f
 	public void doStuff() {
 		move();
 		age ++;
 	}
+
 	public void changeDirection() {
 		direction = (direction + (int)(Math.random() * 10) % 3) % 4;
 	}
@@ -50,5 +55,9 @@ public class Cederman {
 		*/
 		g.setColor(Color.red);
 		g.drawRect(x, y, size, size);
+	}
+
+	public String getName() {
+		return name;
 	}
 } 

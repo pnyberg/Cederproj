@@ -27,6 +27,10 @@ implements ActionListener {
 		timer.start();
 	}
 
+	public void generateNewCederman(Cederman parent1, Cederman parent2) {
+		
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0 ; i < number ; i++)
 			men.get(i).doStuff();
