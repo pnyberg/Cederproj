@@ -11,7 +11,6 @@ extends JPanel
 implements ActionListener {
 	private final int number = 50;
 	private static final String nameFile = "Cedernames.txt";
-
 	private int width = 800;
 	private int height = 550;
 	private int worldSize = 512;
@@ -24,7 +23,7 @@ implements ActionListener {
 		height = frameHeight - 50;
 
 		timer = new Timer(10, this);
-		world = World()
+		world = World(worldSize)
 		men = new LinkedList<Cederman>();
 
 		for (int i = 0 ; i < number ; i++) {
@@ -86,12 +85,14 @@ implements ActionListener {
 	}
 
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		/*super.paintComponent(g);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, width, height);
 
 		for (int i = 0 ; i < number ; i++)
 			men.get(i).paint(g);
+		*/
+		
 	}
 
 	public static String[] names() {
