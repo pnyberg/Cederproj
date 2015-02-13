@@ -8,16 +8,20 @@ implements ActionListener {
 	private final int frameWidth = 800;
 	private final int frameHeight = 600;
 	private Cederpanel panel;
-	private JButton button;
+	private JPanel buttonPanel;
+	private JButton startButton;
 
 	public Cederoj() {
 		panel = new Cederpanel(frameWidth, frameHeight);
-		button = new JButton("Start");
+		buttonPanel = new JPanel();
+		startButton = new JButton("Start");
 
-		button.addActionListener(this);
+		startButton.addActionListener(this);
+
+		buttonPanel.add(startButton);
 
 		add(panel);
-		add(button, BorderLayout.SOUTH);
+		add(buttonPanel, BorderLayout.SOUTH);
 
 		setSize(frameWidth, frameHeight);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -25,7 +29,8 @@ implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == button) {
+		if (e.getSource() == startButton) {
+			panel.init();
 			panel.startSimulation();
 		}
 	}

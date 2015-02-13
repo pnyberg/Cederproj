@@ -12,6 +12,8 @@ implements ActionListener {
 	private final int number = 50;
 	private static final String nameFile = "Cedernames.txt";
 
+	public static String[] names = new String[0];
+
 	private int width;
 	private int height;
 	private Timer timer;
@@ -21,11 +23,37 @@ implements ActionListener {
 		width = frameWidth;
 		height = frameHeight - 50;
 
-		timer = new Timer(10, this);
 		men = new LinkedList<Cederman>();
+	}
+
+	public void init() {
+		timer = new Timer(10, this);
+		initNames();
+
+		men.clear();
 
 		for (int i = 0 ; i < number ; i++) {
 			men.add(new Cederman((int)(Math.random() * width), (int)(Math.random() * height), (int)(Math.random() * 10) % 4, Cederpanel.generateName()));
+		}
+	}
+
+	public static void initNames() {
+		try {
+			Scanner scanner = new Scanner(new File(nameFile));
+			LinkedList<String> readNames = new LinkedList<String>();
+
+			while(scanner.hasNext()) {
+				String text = scanner.next();
+				readNames.add(text);
+			}
+
+			names = new String[readNames.size()];
+
+			for (int i = 0 ; i < readNames.size() ; i++) {
+				names[i] = readNames.get(i);
+			}
+		} catch (Exception e) {
+			names = new String[0];
 		}
 	}
 
@@ -70,9 +98,9 @@ implements ActionListener {
 	}
 
 	public static String generateName() {
-		int choice = (int)(Math.random() * 100) % Cederpanel.names().length;
+		int choice = (int)(Math.random() * 100) % Cederpanel.names.length;
 
-		return Cederpanel.names()[choice];
+		return Cederpanel.names[choice];
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -87,30 +115,7 @@ implements ActionListener {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, width, height);
 
-		for (int i = 0 ; i < number ; i++)
+		for (int i = 0 ; i < men.size() ; i++)
 			men.get(i).paint(g);
-	}
-
-	public static String[] names() {
-		String[] names;
-
-		try {
-			Scanner scanner = new Scanner(new File(nameFile));
-			LinkedList<String> readNames = new LinkedList<String>();
-
-			while(scanner.hasNext()) {
-				String text = scanner.next();
-				readNames.add(text);
-			}
-
-			names = new String[readNames.size()];
-
-			for (int i = 0 ; i < readNames.size() ; i++) {
-				names[i] = readNames.get(i);
-			}
-		} catch (Exception e) {
-			names = new String[0];
-		}
-		return names;
 	}
 }
