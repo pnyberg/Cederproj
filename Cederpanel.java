@@ -6,8 +6,8 @@ import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.Timer;
 
-public class Cederpanel 
-extends JPanel 
+public class Cederpanel
+extends JPanel
 implements ActionListener {
 	private final int number = 50;
 	private static final String nameFile = "Cedernames.txt";
@@ -26,13 +26,13 @@ implements ActionListener {
 		width = frameWidth;
 		height = frameHeight - 50;
 
-		world = new World(worldSize);
 		men = new LinkedList<Cederman>();
 	}
 
 	public void init() {
 		timer = new Timer(10, this);
 		initNames();
+		world = new World(worldSize);
 
 		men.clear();
 
@@ -40,14 +40,18 @@ implements ActionListener {
 		Cederman parent2 = null;
 		for (int i = 0 ; i < number ; i++) {
 			men.add(new Cederman(
-				(int)(Math.random() * width), 
-				(int)(Math.random() * height), 
-				(int)(Math.random() * 10) % 4, 
-				Cederpanel.generateName(), 
+				(int)(Math.random() * width),
+				(int)(Math.random() * height),
+				(int)(Math.random() * 10) % 4,
+				Cederpanel.generateName(),
 				Color.red,
 				parent1,
 				parent2
 				));
+		}
+		//Initial placement of cedermans in the world based on their starting x&y
+		for (int i= 0; i < number ; i++ ) {
+			world[man.get(i).getX()][man.get(i).getY()].place(man.get(i))
 		}
 	}
 
@@ -107,7 +111,7 @@ implements ActionListener {
 					person2.haveBaby();
 
 //					System.out.println("Collision between " + person1.getName() + "(" + n + ")" +
-//										" and " + person2.getName() + "(" + i + ")" + " at " + 
+//										" and " + person2.getName() + "(" + i + ")" + " at " +
 //										person1.getX() + "," + person1.getY());
 				}
 			}
@@ -163,7 +167,9 @@ implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0 ; i < men.size() ; i++)
+			world[man.get(i).getX()][man.get(i).getY()].place(None)
 			men.get(i).doStuff();
+			world[man.get(i).getX()][man.get(i).getY()].place(man.get(i))
 
 		checkCollisions();
 

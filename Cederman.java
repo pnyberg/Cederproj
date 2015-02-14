@@ -26,6 +26,7 @@ public class Cederman {
 	}
 
 	public void move() {
+		// Ska skrivas om så den tar i betrakktning världen
 		if (direction == NORTH) {
 			y -= step;
 		} else if (direction == EAST) {
@@ -39,7 +40,7 @@ public class Cederman {
 		changeDirection();
 	}
 	public void fightYeBastards(){
-		
+
 	}
 	public void doStuff() {
 		move();
@@ -110,4 +111,4 @@ public class Cederman {
 	public Color getColor() {
 		return color;
 	}
-} 
+}

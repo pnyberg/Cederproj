@@ -1,6 +1,6 @@
 public class World {
 	public final int size;
-	private Ground gt; 
+	private Ground gt;
 	private Ground[][] world;
 	public World(int size){
 		this.size = size;
@@ -14,7 +14,7 @@ public class World {
 				world[x][y] = new Ground(x, y);
 			}
 		}
-
+		System.out.println("Yo a world has bean created")
 		return world;
 	}
 }
