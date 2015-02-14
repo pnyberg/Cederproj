@@ -111,4 +111,7 @@ public class Cederman {
 	public Color getColor() {
 		return color;
 	}
+	public int getAge(){
+		return age;
+	}
 }

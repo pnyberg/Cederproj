@@ -51,7 +51,7 @@ implements ActionListener {
 		}
 		//Initial placement of cedermans in the world based on their starting x&y
 		for (int i= 0; i < number ; i++ ) {
-			world[men.get(i).getX()][men.get(i).getY()].place(men.get(i));
+			//world[men.get(i).getX()][men.get(i).getY()].place(men.get(i));
 		}
 	}
 
@@ -166,11 +166,14 @@ implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		for (int i = 0 ; i < men.size() ; i++)
-			world[men.get(i).getX()][men.get(i).getY()].place(None);
+		for (int i = 0 ; i < men.size() ; i++){
+			//world[men.get(i).getX()][men.get(i).getY()].place(None);
 			men.get(i).doStuff();
-			world[men.get(i).getX()][men.get(i).getY()].place(men.get(i));
-
+			if (men.get(i).getAge() > 10000) {
+				System.out.println("OLD FART IS WALKING AMONG US");
+			}
+		}
+			//world[men.get(i).getX()][men.get(i).getY()].place(men.get(i));
 		checkCollisions();
 
 		repaint();
