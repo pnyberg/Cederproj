@@ -6,6 +6,7 @@ public class World {
 	public World(int size){
 		this.size = size;
 		this.world = generateWorld(this.size);
+
 	}
 
 	private Ground[][] generateWorld(int size){
