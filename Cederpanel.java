@@ -106,9 +106,11 @@ implements ActionListener {
 				}
 
 				if (person1.getX() == person2.getX() && person1.getY() == person2.getY()) {
-					men.add(Cederpanel.generateNewCederman(person1, person2));
-					person1.haveBaby();
-					person2.haveBaby();
+					if(person1.canGiveBirth() && person2.canGiveBirth()){
+						men.add(Cederpanel.generateNewCederman(person1, person2));
+						person1.haveBaby();
+						person2.haveBaby();
+					}
 
 //					System.out.println("Collision between " + person1.getName() + "(" + n + ")" +
 //										" and " + person2.getName() + "(" + i + ")" + " at " +
@@ -169,12 +171,17 @@ implements ActionListener {
 		for (int i = 0 ; i < men.size() ; i++){
 			//world[men.get(i).getX()][men.get(i).getY()].place(None);
 			men.get(i).doStuff();
-			if (men.get(i).getAge() > 10000) {
-				System.out.println("OLD FART IS WALKING AMONG US");
+			if (men.get(i).getAge() > 28000) {
+				// ROLL FOR DEATH, EVERYONE COME AND PLAY
+				if (Math.random()>0.5) {
+					System.out.println(men.get(i).getName());
+					System.out.println(men.get(i).death());
+					men.remove(men.get(i));
+				}
 			}
 		}
 			//world[men.get(i).getX()][men.get(i).getY()].place(men.get(i));
-		checkCollisions();
+		checkCollisions(); //
 
 		repaint();
 	}

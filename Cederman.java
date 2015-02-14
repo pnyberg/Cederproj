@@ -9,7 +9,7 @@ public class Cederman {
 	private final int step = 1;
 	private int direction;
 	private int x, y, age, babyCountdown;
-	private String name;
+	private String name, finalLastWords;
 	private Color color;
 	private Cederman parent1, parent2;
 
@@ -24,7 +24,17 @@ public class Cederman {
 
 		babyCountdown = 0;
 	}
-
+	public String death(){
+		finalLastWords=
+		"Jag har dött, denna ve och fasa, så hemskt!\n"+
+		"Goodbye crule and hearthless world, well not crule yet\n"+
+		"but it will come\n"+
+		"trust me\n"+
+		"Fear me CEDERMANS\n"+
+		"for I am not per your beloved god of love\n"+
+		"I am Ceder, bringer of death\n";
+		return finalLastWords;
+	}
 	public void move() {
 		// Ska skrivas om så den tar i betrakktning världen
 		if (direction == NORTH) {
@@ -40,7 +50,7 @@ public class Cederman {
 		changeDirection();
 	}
 	public void fightYeBastards(){
-
+		//BLOOD FOR THE BLOOD GOD AND SKULLS FOR HIS SKULL THRONE
 	}
 	public void doStuff() {
 		move();
@@ -52,11 +62,17 @@ public class Cederman {
 	}
 
 	public void haveBaby() {
-		babyCountdown = 20;
+		babyCountdown = 270;
 	}
 
 	public void changeDirection() {
-		direction = (direction + 1 + (int)(Math.random() * 10) % 3) % 4;
+		// MATTE 0.0 till 1.0 gånnger 10 = 0 till 10 modolu 4? modelu 5?
+		// VAFAN värkar komplicerat
+		// direction = (direction + 1 + (int)(Math.random() * 10) % 3) % 4; VARD DET
+		direction = ((int)(Math.random() * 4));
+		// Detta borde räcka?
+		// JUPP tidigate tester anser att det räcker
+		// HEJ PER, din matte var för komplicerad!
 	}
 
 	public void paint(Graphics g) {
@@ -87,6 +103,18 @@ public class Cederman {
 		}
 		return person.isParent(parent1) || person.isParent(parent2);
 	}
+	public boolean canGiveBirth(){
+		if (age > 5500 && babyCountdown <= 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
+// Dumma get funktioner som inte behövs i python!
+
+
 
 	public int getX() {
 		return x;
