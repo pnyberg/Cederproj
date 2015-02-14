@@ -51,7 +51,7 @@ implements ActionListener {
 		}
 		//Initial placement of cedermans in the world based on their starting x&y
 		for (int i= 0; i < number ; i++ ) {
-			world[man.get(i).getX()][man.get(i).getY()].place(man.get(i))
+			world[men.get(i).getX()][men.get(i).getY()].place(men.get(i));
 		}
 	}
 
@@ -167,9 +167,9 @@ implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0 ; i < men.size() ; i++)
-			world[man.get(i).getX()][man.get(i).getY()].place(None)
+			world[men.get(i).getX()][men.get(i).getY()].place(None);
 			men.get(i).doStuff();
-			world[man.get(i).getX()][man.get(i).getY()].place(man.get(i))
+			world[men.get(i).getX()][men.get(i).getY()].place(men.get(i));
 
 		checkCollisions();
 
