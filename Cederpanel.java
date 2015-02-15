@@ -95,7 +95,7 @@ implements ActionListener {
 //					tempList.add(Cederpanel.generateNewCederman(person1, person2));
 
 //					System.out.println("Collision between " + person1.getName() + "(" + n + ")" +
-//										" and " + person2.getName() + "(" + i + ")" + " at " + 
+//										" and " + person2.getName() + "(" + i + ")" + " at " +
 //										person1.getX() + "," + person1.getY());
 					if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
 						men.add(Cederpanel.generateNewCederman(person1, person2));
@@ -171,7 +171,7 @@ implements ActionListener {
 			men.get(i).doStuff(0, 0, width, height);
 			if (men.get(i).getAge() > 26000) {
 				// ROLL FOR DEATH, EVERYONE COME AND PLAY
-				if (Math.random()>0.99999) {
+				if (Math.random()>0.999) {
 					men.remove(men.get(i));
 				}
 			}
