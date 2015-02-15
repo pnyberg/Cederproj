@@ -8,7 +8,7 @@ public class Cederman {
 	private final int size = 1;
 	private final int step = 1;
 	private int direction;
-	private int x, y, age, babyCountdown;
+	private int x, y, age, babyCountdown, childrens;
 	private String name, finalLastWords;
 	private Color color;
 	private Cederman parent1, parent2, partner;
@@ -71,7 +71,7 @@ public class Cederman {
 	}
 
 	public void haveBaby() {
-		babyCountdown = 270;
+		babyCountdown = 800;
 	}
 
 	public void changeDirection() {
@@ -131,7 +131,7 @@ public class Cederman {
 		return person.isParent(parent1) || person.isParent(parent2);
 	}
 	public boolean canGiveBirth(){
-		if (age > 5500 && babyCountdown <= 0){
+		if (age > 5500 && babyCountdown <= 0 && childrens <= 5){
 			return true;
 		}else{
 			return false;
