@@ -16,7 +16,7 @@ implements ActionListener {
 
 	private int width;
 	private int height;
-	private int worldSize = 512;
+	private int worldSize = 1024;
 
 	private Timer timer;
 	private LinkedList<Cederman> men;
@@ -32,7 +32,7 @@ implements ActionListener {
 	public void init() {
 		timer = new Timer(10, this);
 		initNames();
-		world = new World(worldSize);
+		world = new World(width, height);
 
 		men.clear();
 
@@ -40,8 +40,8 @@ implements ActionListener {
 		Cederman parent2 = null;
 		for (int i = 0 ; i < number ; i++) {
 			men.add(new Cederman(
-				(int)(Math.random() * width),
-				(int)(Math.random() * height),
+				(int)(Math.random() * width-1),
+				(int)(Math.random() * height-1),
 				(int)(Math.random() * 10) % 4,
 				Cederpanel.generateName(),
 				Color.red,
@@ -101,7 +101,6 @@ implements ActionListener {
 						men.add(Cederpanel.generateNewCederman(person1, person2));
 						person1.haveBaby();
 						person2.haveBaby();
-						System.out.println("Size: " + men.size());
 					}
 				}
 			}
@@ -168,6 +167,7 @@ implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0 ; i < men.size() ; i++){
 			//world[men.get(i).getX()][men.get(i).getY()].place(None);
+			world.place(men.get(i).getX(), men.get(i).getY(), men.get(i));
 			men.get(i).doStuff(0, 0, width, height);
 			if (men.get(i).getAge() > 26000) {
 				// ROLL FOR DEATH, EVERYONE COME AND PLAY
