@@ -65,7 +65,7 @@ public class Cederman {
 		return	world;
 	}
 
-	public void marry(Cederman partner) {
+public void marry(Cederman partner) {
 		this.partner = partner;
 		color = Color.white;
 	}

@@ -83,20 +83,15 @@ implements ActionListener {
 	 * Check if two Cedermen are on the same position
 	 * If so, do other stuff
 	 */
-	public void checkCollisions() {
-		int currentSize = men.size();
-		LinkedList<Cederman> tempList = new LinkedList<Cederman>();
-
-		for (int n = 0 ; n < currentSize ; n++) {
-			if (world.check(men.get(n).getX(), men.get(n).getY()-1)){
-				makeBabies(men.get(n), men.get(n).getX(), men.get(n).getY()-1);
-			}else if(world.check(men.get(n).getX()+1, men.get(n).getY())){
-				makeBabies(men.get(n), men.get(n).getX()+1, men.get(n).getY());
-			}else if(world.check(men.get(n).getX(), men.get(n).getY()+1)){
-				makeBabies(men.get(n), men.get(n).getX(), men.get(n).getY()+1);
-			}else if(world.check(men.get(n).getX()-1, men.get(n).getY())){
-				makeBabies(men.get(n), men.get(n).getX()-1, men.get(n).getY());
-			}
+	public void checkCollisions(Cederman man) {
+		if (world.check(man.getX(), man.getY()-1)){
+			makeBabies(man, man.getX(), man.getY()-1);
+		}else if(world.check(man.getX()+1, man.getY())){
+			makeBabies(man, man.getX()+1, man.getY());
+		}else if(world.check(man.getX(), man.getY()+1)){
+			makeBabies(man, man.getX(), man.getY()+1);
+		}else if(world.check(man.getX()-1, man.getY())){
+			makeBabies(man, man.getX()-1, man.getY());
 		}
 	}
 
@@ -165,18 +160,18 @@ implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0 ; i < men.size() ; i++){
-			//world[men.get(i).getX()][men.get(i).getY()].place(None);
 			world = men.get(i).doStuff(0, 0, width, height, world);
+			if (Math.random() > 0.99999999 ) {
+				men.remove(men.get(i));
+			}
 			if (men.get(i).getAge() > 26000) {
 				// ROLL FOR DEATH, EVERYONE COME AND PLAY
 				if (Math.random()>0.999) {
 					men.remove(men.get(i));
 				}
 			}
+			checkCollisions(men.get(i));
 		}
-			//world[men.get(i).getX()][men.get(i).getY()].place(men.get(i));
-		checkCollisions(); //
-
 		repaint();
 	}
 
