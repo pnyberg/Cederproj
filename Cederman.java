@@ -8,10 +8,10 @@ public class Cederman {
 	private final int size = 1;
 	private final int step = 1;
 	private int direction;
-	private int x, y, age, babyCountdown, childrens;
-	private String name, finalLastWords;
+	private int x, y, age, babyCountdown, childrens, influence;
+	private String name;
 	private Color color;
-	private Cederman parent1, parent2, partner;
+	private Cederman parent1, parent2, partner, familyLeader;
 
 	public Cederman(int x, int y, int direction, String name, Color color, Cederman parent1, Cederman parent2) {
 		this.x = x;
@@ -23,21 +23,11 @@ public class Cederman {
 		this.parent2 = parent2;
 
 		partner = null;
+		influence = 0;
 		babyCountdown = 0;
 	}
-	public String death(){
-		finalLastWords=
-		"Jag har dött, denna ve och fasa, så hemskt!\n"+
-		"Goodbye crule and hearthless world, well not crule yet\n"+
-		"but it will come\n"+
-		"trust me\n"+
-		"Fear me CEDERMANS\n"+
-		"for I am not per your beloved god of love\n"+
-		"I am Ceder, bringer of death\n";
-		return finalLastWords;
-	}
+
 	public void move(int xMin, int yMin, int xMax, int yMax) {
-		// Ska skrivas om så den tar i betrakktning världen
 		if (direction == NORTH) {
 			this.y -= (y > 0 ? step : 0);
 		} else if (direction == EAST) {
@@ -47,31 +37,47 @@ public class Cederman {
 		} else {
 			this.x -= (x > 0 ? step : 0);
 		}
-
 		changeDirection();
 	}
-	public void fightYeBastards(){
-		//BLOOD FOR THE BLOOD GOD AND SKULLS FOR HIS SKULL THRONE
-	}
+
 	public World doStuff(int xMin, int yMin, int xMax, int yMax, World world) {
 		world.remove(this.x, this.y);
 		move(xMin, yMin, xMax, yMax);
 		world.place(this.x, this.y, this);
-		age++;
+
+		if(familyLeader == this){
+			color = Color.orange;
+			leadFamily();
+		}
 		if (babyCountdown > 0)
 			babyCountdown--;
-
-//		System.out.println(name);
+		age++;
 		return	world;
 	}
 
-public void marry(Cederman partner) {
+	public void marry(Cederman partner) {
 		this.partner = partner;
 		color = Color.white;
+		if (familyLeader == null){
+			if (this.partner.getFamilyLeader()) {
+				familyLeader = this.partner.getFamilyLeader();
+			}else{
+				familyLeader = this;
+			}
+		}else if(getFamilyLeader()==this.partner.getFamilyLeader()){
+			continue;
+		}
+		else if(getFamilyLeader().influence < this.partner.getFamilyLeader().influence){
+			familyLeader = this.partner.getFamilyLeader();
+		}
 	}
 
 	public void haveBaby() {
 		babyCountdown = 800;
+	}
+
+	private void leadFamily(){
+		//Behöver hem
 	}
 
 	public void changeDirection() {
@@ -103,11 +109,6 @@ public void marry(Cederman partner) {
 	}
 
 	public void paint(Graphics g) {
-		/*g.setColor(Color.red);
-		g.fillOval(x y size size);
-		g.setColor(Color.black);
-		g.drawOval(x y size size);
-		*/
 		if (babyCountdown > 0)
 			g.setColor(Color.green);
 		else
@@ -138,11 +139,6 @@ public void marry(Cederman partner) {
 		}
 	}
 
-
-// Dumma get funktioner som inte behövs i python!
-
-
-
 	public int getX() {
 		return x;
 	}
@@ -172,5 +168,9 @@ public void marry(Cederman partner) {
 
 	public Cederman getPartner() {
 		return partner;
+	}
+
+	public Cederman getFamilyLeader() {
+		return familyLeader;
 	}
 }

@@ -25,7 +25,6 @@ implements ActionListener {
 	public Cederpanel(int frameWidth, int frameHeight) {
 		width = frameWidth;
 		height = frameHeight - 50;
-
 		men = new LinkedList<Cederman>();
 	}
 
@@ -48,10 +47,6 @@ implements ActionListener {
 				parent1,
 				parent2
 				));
-		}
-		//Initial placement of cedermans in the world based on their starting x&y
-		for (int i= 0; i < number ; i++ ) {
-			//world[men.get(i).getX()][men.get(i).getY()].place(men.get(i));
 		}
 	}
 
@@ -79,10 +74,6 @@ implements ActionListener {
 		timer.start();
 	}
 
-	/**
-	 * Check if two Cedermen are on the same position
-	 * If so, do other stuff
-	 */
 	public void checkCollisions(Cederman man) {
 		if (world.check(man.getX(), man.getY()-1)){
 			makeBabies(man, man.getX(), man.getY()-1);
@@ -165,7 +156,6 @@ implements ActionListener {
 				men.remove(men.get(i));
 			}
 			if (men.get(i).getAge() > 26000) {
-				// ROLL FOR DEATH, EVERYONE COME AND PLAY
 				if (Math.random()>0.999) {
 					men.remove(men.get(i));
 				}
