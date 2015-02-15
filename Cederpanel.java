@@ -88,63 +88,25 @@ implements ActionListener {
 		LinkedList<Cederman> tempList = new LinkedList<Cederman>();
 
 		for (int n = 0 ; n < currentSize ; n++) {
-			/*
-			for (int i = 0 ; i < n ; i++) {
-				Cederman person1 = men.get(n);
-				Cederman person2 = men.get(i);
-				if (person1.getX() == person2.getX() && person1.getY() == person2.getY()) {
-//					tempList.add(Cederpanel.generateNewCederman(person1, person2));
-
-//					System.out.println("Collision between " + person1.getName() + "(" + n + ")" +
-//										" and " + person2.getName() + "(" + i + ")" + " at " +
-//										person1.getX() + "," + person1.getY());
-					if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
-						men.add(Cederpanel.generateNewCederman(person1, person2));
-						person1.haveBaby();
-						person2.haveBaby();
-					}
-				}
-			}
-			*/
-
 			if (world.check(men.get(n).getX(), men.get(n).getY()-1)){
-				Cederman person1 = men.get(n);
-				Cederman person2 = world.getMan(person1.getX(), person1.getY()-1);
-				if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
-					men.add(Cederpanel.generateNewCederman(person1, person2));
-					person1.haveBaby();
-					person2.haveBaby();
-				}
+				makeBabies(men.get(n), men.get(n).getX(), men.get(n).getY()-1);
 			}else if(world.check(men.get(n).getX()+1, men.get(n).getY())){
-				Cederman person1 = men.get(n);
-				Cederman person2 = world.getMan(person1.getX()+1, person1.getY());
-				if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
-					men.add(Cederpanel.generateNewCederman(person1, person2));
-					person1.haveBaby();
-					person2.haveBaby();
-				}
+				makeBabies(men.get(n), men.get(n).getX()+1, men.get(n).getY());
 			}else if(world.check(men.get(n).getX(), men.get(n).getY()+1)){
-				Cederman person1 = men.get(n);
-				Cederman person2 = world.getMan(person1.getX(), person1.getY()+1);
-				if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
-					men.add(Cederpanel.generateNewCederman(person1, person2));
-					person1.haveBaby();
-					person2.haveBaby();
-				}
+				makeBabies(men.get(n), men.get(n).getX(), men.get(n).getY()+1);
 			}else if(world.check(men.get(n).getX()-1, men.get(n).getY())){
-				Cederman person1 = men.get(n);
-				Cederman person2 = world.getMan(person1.getX()-1, person1.getY());
-				if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
-					men.add(Cederpanel.generateNewCederman(person1, person2));
-					person1.haveBaby();
-					person2.haveBaby();
-				}
+				makeBabies(men.get(n), men.get(n).getX()-1, men.get(n).getY());
 			}
-
 		}
+	}
 
-		for (Cederman man : tempList)
-			men.add(man);
+	public void makeBabies(Cederman person1, int x, int y){
+		Cederman person2 = world.getMan(x, y);
+		if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
+			men.add(Cederpanel.generateNewCederman(person1, person2));
+			person1.haveBaby();
+			person2.haveBaby();
+		}
 	}
 
 	public boolean mayConsume(Cederman person1, Cederman person2) {
