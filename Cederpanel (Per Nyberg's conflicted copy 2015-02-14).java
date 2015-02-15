@@ -36,8 +36,18 @@ implements ActionListener {
 
 		men.clear();
 
+		Cederman parent1 = null;
+		Cederman parent2 = null;
 		for (int i = 0 ; i < number ; i++) {
-			men.add(new Cederman((int)(Math.random() * width), (int)(Math.random() * height), (int)(Math.random() * 10) % 4, Cederpanel.generateName(), Color.red));
+			men.add(new Cederman(
+				(int)(Math.random() * width), 
+				(int)(Math.random() * height), 
+				(int)(Math.random() * 10) % 4, 
+				Cederpanel.generateName(), 
+				Color.red,
+				parent1,
+				parent2
+				));
 		}
 	}
 
@@ -74,21 +84,34 @@ implements ActionListener {
 		LinkedList<Cederman> tempList = new LinkedList<Cederman>();
 
 		for (int n = 0 ; n < currentSize ; n++) {
-			for (int i = 0 ; i < n ; i++) {
-				Cederman person1 = men.get(n);
-				Cederman person2 = men.get(i);
-				if (person1.getX() == person2.getX() && person1.getY() == person2.getY()) {
-					tempList.add(Cederpanel.generateNewCederman(person1, person2));
+			Cederman person1 = men.get(n);
+			if (person1.getBabyCountdown() > 0) {
+				continue;
+			}
 
-					System.out.println("Collision between " + person1.getName() + "(" + n + ")" +
-										" and " + person2.getName() + "(" + i + ")" + " at " + 
-										person1.getX() + "," + person1.getY());
+			for (int i = 0 ; i < n ; i++) {
+				Cederman person2 = men.get(i);
+				if (person2.getBabyCountdown() > 0) {
+					continue;
+				}
+				if (person1.isParent(person2)) {
+					continue;
+				}
+				if (person1.isSibling(person2)) {
+					continue;
+				}
+
+				if (person1.getX() == person2.getX() && person1.getY() == person2.getY()) {
+					men.add(Cederpanel.generateNewCederman(person1, person2));
+					person1.haveBaby();
+					person2.haveBaby();
+
+//					System.out.println("Collision between " + person1.getName() + "(" + n + ")" +
+//										" and " + person2.getName() + "(" + i + ")" + " at " + 
+//										person1.getX() + "," + person1.getY());
 				}
 			}
 		}
-
-		for (Cederman man : tempList)
-			men.add(man);
 	}
 
 	public static Cederman generateNewCederman(Cederman parent1, Cederman parent2) {
@@ -123,8 +146,13 @@ implements ActionListener {
 		int x = parent1.getX();
 		int y = parent1.getY();
 		int direction = ((parent1.getDirection() + parent2.getDirection()) / 2) % 4;
+		Color babyColor = Color.blue;
 
-		return new Cederman(x, y, direction, newName, Color.blue);
+		if (parent1.getColor() == Color.blue || parent2.getColor() == Color.blue) {
+			babyColor = Color.yellow;
+		}
+
+		return new Cederman(x, y, direction, newName, babyColor, parent1, parent2);
 	}
 
 	public static String generateName() {
@@ -134,7 +162,7 @@ implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		for (int i = 0 ; i < number ; i++)
+		for (int i = 0 ; i < men.size() ; i++)
 			men.get(i).doStuff();
 
 		checkCollisions();
