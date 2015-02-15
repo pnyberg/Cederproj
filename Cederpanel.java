@@ -171,11 +171,9 @@ implements ActionListener {
 		for (int i = 0 ; i < men.size() ; i++){
 			//world[men.get(i).getX()][men.get(i).getY()].place(None);
 			men.get(i).doStuff();
-			if (men.get(i).getAge() > 28000) {
+			if (men.get(i).getAge() > 26000) {
 				// ROLL FOR DEATH, EVERYONE COME AND PLAY
-				if (Math.random()>0.5) {
-					System.out.println(men.get(i).getName());
-					System.out.println(men.get(i).death());
+				if (Math.random()>0.99999) {
 					men.remove(men.get(i));
 				}
 			}
@@ -190,6 +188,9 @@ implements ActionListener {
 		super.paintComponent(g);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, width, height);
+
+		g.setColor(Color.white);
+		g.drawString(Integer.toString(men.size()), width-30, 10);
 
 		for (int i = 0 ; i < men.size() ; i++)
 			men.get(i).paint(g);
