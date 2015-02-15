@@ -168,7 +168,7 @@ implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0 ; i < men.size() ; i++){
 			//world[men.get(i).getX()][men.get(i).getY()].place(None);
-			men.get(i).doStuff();
+			men.get(i).doStuff(0, 0, width, height);
 			if (men.get(i).getAge() > 26000) {
 				// ROLL FOR DEATH, EVERYONE COME AND PLAY
 				if (Math.random()>0.99999) {

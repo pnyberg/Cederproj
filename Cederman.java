@@ -36,16 +36,16 @@ public class Cederman {
 		"I am Ceder, bringer of death\n";
 		return finalLastWords;
 	}
-	public void move() {
+	public void move(int xMin, int yMin, int xMax, int yMax) {
 		// Ska skrivas om så den tar i betrakktning världen
 		if (direction == NORTH) {
-			y -= step;
+			y -= (y > 0 ? step : 0);
 		} else if (direction == EAST) {
-			x += step;
+			x += (x < xMax ? step : 0);
 		} else if (direction == SOUTH) {
-			y += step;
+			y += (y < yMax ? step : 0);
 		} else {
-			x -= step;
+			x -= (x > 0 ? step : 0);
 		}
 
 		changeDirection();
@@ -53,8 +53,8 @@ public class Cederman {
 	public void fightYeBastards(){
 		//BLOOD FOR THE BLOOD GOD AND SKULLS FOR HIS SKULL THRONE
 	}
-	public void doStuff() {
-		move();
+	public void doStuff(int xMin, int yMin, int xMax, int yMax) {
+		move(xMin, yMin, xMax, yMax);
 		age++;
 		if (babyCountdown > 0)
 			babyCountdown--;
