@@ -9,8 +9,6 @@ public class World {
 	}
 
 	private Ground[][] generateWorld(int widht, int height){
-		System.out.println(Integer.toString(widht));
-		System.out.println(Integer.toString(height));
 		Ground[][] world = new Ground[widht][height];
 		for (int y=0 ; y < height ; y++) {
 			for (int x=0 ; x < widht ; x++){
@@ -20,10 +18,30 @@ public class World {
 		System.out.println("Yo a world has bean created");
 		return world;
 	}
+
 	public void place(int x, int y, Cederman man){
-		System.out.println(Integer.toString(x));
-		System.out.println(Integer.toString(y));
-		this.world[man.getX()][man.getY()].remove();
 		this.world[x][y].place(man);
+	}
+
+	public void remove(int x, int y){
+		this.world[x][y].remove();
+	}
+
+	public boolean check(int x, int y){
+		try {
+			if (x >= 0 && y >= 0){
+				if (this.world[x][y].getMan() != null){
+					return true;
+				}
+			}else{
+				return false;
+			}
+		} catch (java.lang.ArrayIndexOutOfBoundsException e){
+			return false;
+		}
+		return false;
+	}
+	public Cederman getMan(int x, int y){
+		return this.world[x][y].getMan();
 	}
 }

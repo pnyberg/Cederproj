@@ -39,13 +39,13 @@ public class Cederman {
 	public void move(int xMin, int yMin, int xMax, int yMax) {
 		// Ska skrivas om så den tar i betrakktning världen
 		if (direction == NORTH) {
-			y -= (y > 0 ? step : 0);
+			this.y -= (y > 0 ? step : 0);
 		} else if (direction == EAST) {
-			x += (x < xMax ? step : 0);
+			this.x += (x < xMax ? step : 0);
 		} else if (direction == SOUTH) {
-			y += (y < yMax ? step : 0);
+			this.y += (y < yMax ? step : 0);
 		} else {
-			x -= (x > 0 ? step : 0);
+			this.x -= (x > 0 ? step : 0);
 		}
 
 		changeDirection();
@@ -53,18 +53,21 @@ public class Cederman {
 	public void fightYeBastards(){
 		//BLOOD FOR THE BLOOD GOD AND SKULLS FOR HIS SKULL THRONE
 	}
-	public void doStuff(int xMin, int yMin, int xMax, int yMax) {
+	public World doStuff(int xMin, int yMin, int xMax, int yMax, World world) {
+		world.remove(this.x, this.y);
 		move(xMin, yMin, xMax, yMax);
+		world.place(this.x, this.y, this);
 		age++;
 		if (babyCountdown > 0)
 			babyCountdown--;
 
 //		System.out.println(name);
+		return	world;
 	}
 
 	public void marry(Cederman partner) {
 		this.partner = partner;
-		color = Color.yellow;
+		color = Color.white;
 	}
 
 	public void haveBaby() {

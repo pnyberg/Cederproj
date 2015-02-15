@@ -32,7 +32,7 @@ implements ActionListener {
 	public void init() {
 		timer = new Timer(10, this);
 		initNames();
-		world = new World(width, height);
+		world = new World(width+1 , height+1);
 
 		men.clear();
 
@@ -88,6 +88,7 @@ implements ActionListener {
 		LinkedList<Cederman> tempList = new LinkedList<Cederman>();
 
 		for (int n = 0 ; n < currentSize ; n++) {
+			/*
 			for (int i = 0 ; i < n ; i++) {
 				Cederman person1 = men.get(n);
 				Cederman person2 = men.get(i);
@@ -104,6 +105,42 @@ implements ActionListener {
 					}
 				}
 			}
+			*/
+
+			if (world.check(men.get(n).getX(), men.get(n).getY()-1)){
+				Cederman person1 = men.get(n);
+				Cederman person2 = world.getMan(person1.getX(), person1.getY()-1);
+				if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
+					men.add(Cederpanel.generateNewCederman(person1, person2));
+					person1.haveBaby();
+					person2.haveBaby();
+				}
+			}else if(world.check(men.get(n).getX()+1, men.get(n).getY())){
+				Cederman person1 = men.get(n);
+				Cederman person2 = world.getMan(person1.getX()+1, person1.getY());
+				if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
+					men.add(Cederpanel.generateNewCederman(person1, person2));
+					person1.haveBaby();
+					person2.haveBaby();
+				}
+			}else if(world.check(men.get(n).getX(), men.get(n).getY()+1)){
+				Cederman person1 = men.get(n);
+				Cederman person2 = world.getMan(person1.getX(), person1.getY()+1);
+				if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
+					men.add(Cederpanel.generateNewCederman(person1, person2));
+					person1.haveBaby();
+					person2.haveBaby();
+				}
+			}else if(world.check(men.get(n).getX()-1, men.get(n).getY())){
+				Cederman person1 = men.get(n);
+				Cederman person2 = world.getMan(person1.getX()-1, person1.getY());
+				if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
+					men.add(Cederpanel.generateNewCederman(person1, person2));
+					person1.haveBaby();
+					person2.haveBaby();
+				}
+			}
+
 		}
 
 		for (Cederman man : tempList)
@@ -167,8 +204,7 @@ implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0 ; i < men.size() ; i++){
 			//world[men.get(i).getX()][men.get(i).getY()].place(None);
-			world.place(men.get(i).getX(), men.get(i).getY(), men.get(i));
-			men.get(i).doStuff(0, 0, width, height);
+			world = men.get(i).doStuff(0, 0, width, height, world);
 			if (men.get(i).getAge() > 26000) {
 				// ROLL FOR DEATH, EVERYONE COME AND PLAY
 				if (Math.random()>0.999) {

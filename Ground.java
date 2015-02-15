@@ -12,6 +12,10 @@ public class Ground {
 		this.man = man;
 	}
 	public void remove(){
-		this.man = None;
+		this.man = null;
+	}
+
+	public Cederman getMan(){
+		return this.man;
 	}
 }
