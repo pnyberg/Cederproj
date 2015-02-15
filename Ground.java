@@ -10,6 +10,6 @@ public class Ground {
 	}
 	public void place(Cederman man){
 		this.man = man;
-		this.man.setPosition(x, y);
+		//this.man.setPosition(x, y);
 	}
 }

@@ -9,9 +9,9 @@ public class Cederman {
 	private final int step = 1;
 	private int direction;
 	private int x, y, age, babyCountdown;
-	private String name;
+	private String name, finalLastWords;
 	private Color color;
-	private Cederman parent1, parent2;
+	private Cederman parent1, parent2, partner;
 
 	public Cederman(int x, int y, int direction, String name, Color color, Cederman parent1, Cederman parent2) {
 		this.x = x;
@@ -22,10 +22,22 @@ public class Cederman {
 		this.parent1 = parent1;
 		this.parent2 = parent2;
 
+		partner = null;
 		babyCountdown = 0;
 	}
-
+	public String death(){
+		finalLastWords=
+		"Jag har dött, denna ve och fasa, så hemskt!\n"+
+		"Goodbye crule and hearthless world, well not crule yet\n"+
+		"but it will come\n"+
+		"trust me\n"+
+		"Fear me CEDERMANS\n"+
+		"for I am not per your beloved god of love\n"+
+		"I am Ceder, bringer of death\n";
+		return finalLastWords;
+	}
 	public void move() {
+		// Ska skrivas om så den tar i betrakktning världen
 		if (direction == NORTH) {
 			y -= step;
 		} else if (direction == EAST) {
@@ -39,7 +51,7 @@ public class Cederman {
 		changeDirection();
 	}
 	public void fightYeBastards(){
-		
+		//BLOOD FOR THE BLOOD GOD AND SKULLS FOR HIS SKULL THRONE
 	}
 	public void doStuff() {
 		move();
@@ -50,12 +62,41 @@ public class Cederman {
 //		System.out.println(name);
 	}
 
+	public void marry(Cederman partner) {
+		this.partner = partner;
+		color = Color.yellow;
+	}
+
 	public void haveBaby() {
-		babyCountdown = 20;
+		babyCountdown = 270;
 	}
 
 	public void changeDirection() {
-		direction = (direction + 1 + (int)(Math.random() * 10) % 3) % 4;
+		direction = ((int)(Math.random() * 4));
+
+		if (partner != null && notCloseEnoughToPartner()) {
+			int xDir = 0;
+			int yDir = 0;
+
+			if (partner.getX() > x) {
+				xDir = 1;
+			} else {
+				xDir = -1;
+			}
+
+			if (partner.getY() > y) {
+				yDir = 2;
+				xDir *= -1;
+			}
+
+			direction = (4 + yDir + (((int)(Math.random() * 10)) % 2) * xDir) % 4;
+		}
+	}
+
+	private boolean notCloseEnoughToPartner() {
+		double x = Math.pow(this.x - partner.getX(), 2);
+		double y = Math.pow(this.y - partner.getY(), 2);
+		return Math.sqrt(x + y) >= 10;
 	}
 
 	public void paint(Graphics g) {
@@ -86,6 +127,18 @@ public class Cederman {
 		}
 		return person.isParent(parent1) || person.isParent(parent2);
 	}
+	public boolean canGiveBirth(){
+		if (age > 5500 && babyCountdown <= 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
+// Dumma get funktioner som inte behövs i python!
+
+
 
 	public int getX() {
 		return x;
@@ -110,4 +163,11 @@ public class Cederman {
 	public Color getColor() {
 		return color;
 	}
-} 
+	public int getAge(){
+		return age;
+	}
+
+	public Cederman getPartner() {
+		return partner;
+	}
+}

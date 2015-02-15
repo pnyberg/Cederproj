@@ -8,5 +8,7 @@ public class Cedertest {
 //		Cederman newPerson = Cederpanel.generateNewCederman(person1, person2);
 
 //		System.out.println(newPerson.getName());
+		World world = new World(8);
+		System.out.println(world);
 	}
 }

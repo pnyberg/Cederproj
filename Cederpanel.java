@@ -6,8 +6,8 @@ import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.Timer;
 
-public class Cederpanel 
-extends JPanel 
+public class Cederpanel
+extends JPanel
 implements ActionListener {
 	private final int number = 50;
 	private static final String nameFile = "Cedernames.txt";
@@ -26,18 +26,32 @@ implements ActionListener {
 		width = frameWidth;
 		height = frameHeight - 50;
 
-		world = new World(worldSize);
 		men = new LinkedList<Cederman>();
 	}
 
 	public void init() {
 		timer = new Timer(10, this);
 		initNames();
+		world = new World(worldSize);
 
 		men.clear();
 
+		Cederman parent1 = null;
+		Cederman parent2 = null;
 		for (int i = 0 ; i < number ; i++) {
-			men.add(new Cederman((int)(Math.random() * width), (int)(Math.random() * height), (int)(Math.random() * 10) % 4, Cederpanel.generateName(), Color.red));
+			men.add(new Cederman(
+				(int)(Math.random() * width),
+				(int)(Math.random() * height),
+				(int)(Math.random() * 10) % 4,
+				Cederpanel.generateName(),
+				Color.red,
+				parent1,
+				parent2
+				));
+		}
+		//Initial placement of cedermans in the world based on their starting x&y
+		for (int i= 0; i < number ; i++ ) {
+			//world[men.get(i).getX()][men.get(i).getY()].place(men.get(i));
 		}
 	}
 
@@ -78,17 +92,33 @@ implements ActionListener {
 				Cederman person1 = men.get(n);
 				Cederman person2 = men.get(i);
 				if (person1.getX() == person2.getX() && person1.getY() == person2.getY()) {
-					tempList.add(Cederpanel.generateNewCederman(person1, person2));
+//					tempList.add(Cederpanel.generateNewCederman(person1, person2));
 
-					System.out.println("Collision between " + person1.getName() + "(" + n + ")" +
-										" and " + person2.getName() + "(" + i + ")" + " at " + 
-										person1.getX() + "," + person1.getY());
+//					System.out.println("Collision between " + person1.getName() + "(" + n + ")" +
+//										" and " + person2.getName() + "(" + i + ")" + " at " + 
+//										person1.getX() + "," + person1.getY());
+					if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
+						men.add(Cederpanel.generateNewCederman(person1, person2));
+						person1.haveBaby();
+						person2.haveBaby();
+						System.out.println("Size: " + men.size());
+					}
 				}
 			}
 		}
 
 		for (Cederman man : tempList)
 			men.add(man);
+	}
+
+	public boolean mayConsume(Cederman person1, Cederman person2) {
+		return (person1.getPartner() == person2 && person2.getPartner() == person1)
+			|| (person1.getPartner() == null && person2.getPartner() == null);
+	}
+
+	public static void marry(Cederman parent1, Cederman parent2) {
+		parent1.marry(parent2);
+		parent2.marry(parent1);
 	}
 
 	public static Cederman generateNewCederman(Cederman parent1, Cederman parent2) {
@@ -124,7 +154,9 @@ implements ActionListener {
 		int y = parent1.getY();
 		int direction = ((parent1.getDirection() + parent2.getDirection()) / 2) % 4;
 
-		return new Cederman(x, y, direction, newName, Color.blue);
+		marry(parent1, parent2);
+
+		return new Cederman(x, y, direction, newName, Color.blue, parent1, parent2);
 	}
 
 	public static String generateName() {
@@ -134,10 +166,20 @@ implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		for (int i = 0 ; i < number ; i++)
+		for (int i = 0 ; i < men.size() ; i++){
+			//world[men.get(i).getX()][men.get(i).getY()].place(None);
 			men.get(i).doStuff();
-
-		checkCollisions();
+			if (men.get(i).getAge() > 28000) {
+				// ROLL FOR DEATH, EVERYONE COME AND PLAY
+				if (Math.random()>0.5) {
+					System.out.println(men.get(i).getName());
+					System.out.println(men.get(i).death());
+					men.remove(men.get(i));
+				}
+			}
+		}
+			//world[men.get(i).getX()][men.get(i).getY()].place(men.get(i));
+		checkCollisions(); //
 
 		repaint();
 	}
