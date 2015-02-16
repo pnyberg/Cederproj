@@ -65,7 +65,7 @@ public class Cederman {
 			}else{
 				familyLeader = this;
 			}
-		else if(getFamilyLeader().influence < this.partner.getFamilyLeader().influence){
+		}else if(getFamilyLeader().influence < this.partner.getFamilyLeader().influence){
 			familyLeader = this.partner.getFamilyLeader();
 		}
 	}
