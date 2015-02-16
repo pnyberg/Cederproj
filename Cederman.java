@@ -59,13 +59,13 @@ public class Cederman {
 		this.partner = partner;
 		color = Color.white;
 		if (familyLeader == null){
-			if (this.partner.getFamilyLeader()) {
+			if (this.partner.getFamilyLeader() != null) {
 				familyLeader = this.partner.getFamilyLeader();
 			}else{
 				familyLeader = this;
 			}
 		}else if(getFamilyLeader()==this.partner.getFamilyLeader()){
-			continue;
+
 		}
 		else if(getFamilyLeader().influence < this.partner.getFamilyLeader().influence){
 			familyLeader = this.partner.getFamilyLeader();

@@ -150,6 +150,7 @@ implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		long start = System.nanoTime();
 		for (int i = 0 ; i < men.size() ; i++){
 			world = men.get(i).doStuff(0, 0, width, height, world);
 			if (Math.random() > 0.99999999 ) {
@@ -162,7 +163,12 @@ implements ActionListener {
 			}
 			checkCollisions(men.get(i));
 		}
+		long elapsedTime = System.nanoTime()-start;
+		long start2 = System.nanoTime();
 		repaint();
+		long elapsedTime2 = System.nanoTime() -start2;
+		System.out.println("Do stuff and collisions: " + Long.toString(elapsedTime));
+		System.out.println("Repaint: " + Long.toString(elapsedTime2));
 	}
 
 	public void paintComponent(Graphics g) {
