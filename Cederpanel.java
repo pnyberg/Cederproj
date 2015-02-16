@@ -89,9 +89,12 @@ implements ActionListener {
 	public void makeBabies(Cederman person1, int x, int y){
 		Cederman person2 = world.getMan(x, y);
 		if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
-			men.add(Cederpanel.generateNewCederman(person1, person2));
+			Cederman baby = Cederpanel.generateNewCederman(person1, person2);
+			person1.setHeir(baby);
+			person2.setHeir(baby);
 			person1.haveBaby();
 			person2.haveBaby();
+			men.add(baby);
 		}
 	}
 

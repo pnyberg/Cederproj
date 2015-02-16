@@ -11,7 +11,7 @@ public class Cederman {
 	private int x, y, age, babyCountdown, childrens, influence;
 	private String name;
 	private Color color;
-	private Cederman parent1, parent2, partner, familyLeader;
+	private Cederman parent1, parent2, partner, familyLeader, heir;
 
 	public Cederman(int x, int y, int direction, String name, Color color, Cederman parent1, Cederman parent2) {
 		this.x = x;
@@ -22,6 +22,7 @@ public class Cederman {
 		this.parent1 = parent1;
 		this.parent2 = parent2;
 
+		this.heir = null;
 		partner = null;
 		familyLeader = null;
 		influence = 0;
@@ -72,6 +73,7 @@ public class Cederman {
 
 	public void haveBaby() {
 		babyCountdown = 800;
+		influence++;
 	}
 
 	private void leadFamily(){
@@ -134,6 +136,12 @@ public class Cederman {
 			return true;
 		}else{
 			return false;
+		}
+	}
+
+	public void setHeir(Cederman heir){
+		if (this.heir == null) {
+			this.heir = heir;
 		}
 	}
 
