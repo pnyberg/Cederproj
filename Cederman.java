@@ -29,6 +29,11 @@ public class Cederman {
 		babyCountdown = 0;
 	}
 
+	public void death(){
+		if(this.heir != null){
+
+		}
+	}
 	public void move(int xMin, int yMin, int xMax, int yMax) {
 		if (direction == NORTH) {
 			this.y -= (y > 0 ? step : 0);
@@ -178,5 +183,9 @@ public class Cederman {
 
 	public Cederman getFamilyLeader() {
 		return familyLeader;
+	}
+
+	public int getInfluence(){
+		return influence;
 	}
 }
