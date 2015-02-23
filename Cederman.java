@@ -12,6 +12,7 @@ public class Cederman {
 	private String name;
 	private Color color;
 	private Cederman parent1, parent2, partner, familyLeader, heir;
+	private House home;
 
 	public Cederman(int x, int y, int direction, String name, Color color, Cederman parent1, Cederman parent2) {
 		this.x = x;
@@ -82,7 +83,10 @@ public class Cederman {
 	}
 
 	private void leadFamily(){
-		//Behöver hem
+		if (home == null){
+			home = new House(this.x, this.y, this);
+		}
+		home.paint();
 	}
 
 	public void changeDirection() {
