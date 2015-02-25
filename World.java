@@ -42,4 +42,10 @@ public class World {
 	public Cederman getMan(int x, int y){
 		return this.world[x][y].getMan();
 	}
+	public int getXMax(){
+		return widht;
+	}
+	public int getYMax(){
+		return height;
+	}
 }

@@ -9,7 +9,7 @@ public class Cederman {
 	private final int step = 1;
 	private int direction;
 	private int x, y, age, babyCountdown, childrens, influence;
-	private String name;
+	private String name, goal;
 	private Color color;
 	private Cederman parent1, parent2, partner, familyLeader, heir;
 	private House home;
@@ -36,19 +36,61 @@ public class Cederman {
 		}
 	}
 	public void move(int xMin, int yMin, int xMax, int yMax) {
-		if (direction == NORTH) {
+		if (this.direction == NORTH) {
 			this.y -= (y > 0 ? step : 0);
-		} else if (direction == EAST) {
+		} else if (this.direction == EAST) {
 			this.x += (x < xMax ? step : 0);
-		} else if (direction == SOUTH) {
+		} else if (this.direction == SOUTH) {
 			this.y += (y < yMax ? step : 0);
 		} else {
 			this.x -= (x > 0 ? step : 0);
 		}
 		changeDirection();
 	}
+	private String createGoal(){
+		//SHOULD take into account what the Cedermans status is
+		String goal = "SOULSEARCH";
+		return goal;
+	}
+	public World doStuff(World world) {
 
-	public World doStuff(int xMin, int yMin, int xMax, int yMax, World world) {
+		//Do i have a goal?
+		if (this.goal == null){
+			//Get new goal
+			this.goal = createGoal();
+		}else{
+			//Act on goal
+			switch (this.goal) {
+				case "EAT":
+					//Goal is to find food for Cederman is hungry
+					//For this to work we need a food resource
+					break;
+				case "SLEEP":
+					//Do nothing for 6-8 cycles
+					break;
+				case "RAVE":
+					break;
+				case "REPEAT":
+					break;
+				case "MATE":
+					//I WANT AN OFFSPRING
+					break;
+				case "BENDER":
+					//Random desigins that can end up with impranation with other then partner or killing frinds
+					break;
+				case "SOULSEARCH":
+					//Aimlessly wandering around kinda what is always done
+					world.remove(this.x, this.y);
+					move(0, 0, world.getXMax(), world.getYMax());
+					world.place(this.x, this.y, this);
+					break;
+				default:
+					this.goal = createGoal();
+			}
+		}
+		//React to world
+
+		/*
 		world.remove(this.x, this.y);
 		move(xMin, yMin, xMax, yMax);
 		world.place(this.x, this.y, this);
@@ -60,6 +102,7 @@ public class Cederman {
 		if (babyCountdown > 0)
 			babyCountdown--;
 		age++;
+		*/
 		return	world;
 	}
 
@@ -86,12 +129,12 @@ public class Cederman {
 		if (home == null){
 			home = new House(this.x, this.y, this);
 		}
-		home.paint();
 	}
 
 	public void changeDirection() {
-		direction = ((int)(Math.random() * 4));
-
+		this.direction = ((int)(Math.random() * 4));
+		System.out.println(this.name);
+		System.out.println(direction);
 		if (partner != null && notCloseEnoughToPartner()) {
 			int xDir = 0;
 			int yDir = 0;
@@ -107,7 +150,8 @@ public class Cederman {
 				xDir *= -1;
 			}
 
-			direction = (4 + yDir + (((int)(Math.random() * 10)) % 2) * xDir) % 4;
+			this.direction = (4 + yDir + (((int)(Math.random() * 10)) % 2) * xDir) % 4;
+			System.out.println(direction);
 		}
 	}
 
@@ -123,6 +167,9 @@ public class Cederman {
 		else
 			g.setColor(color);
 		g.drawRect(x, y, size, size);
+		if (this.home != null){
+			home.paint(g);
+		}
 	}
 
 	public void setPosition(int x, int y) {

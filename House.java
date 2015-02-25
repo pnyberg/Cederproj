@@ -10,7 +10,7 @@ public class House{
         this.owner = owner;
     }
     public void paint(Graphics g){
-        g.setColor(Color.brown)
-        g.drawRect(x, y, 3, 3)
+        g.setColor(Color.white);
+        g.drawRect(x, y, 3, 3);
     }
 }

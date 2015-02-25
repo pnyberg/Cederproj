@@ -9,7 +9,7 @@ import javax.swing.Timer;
 public class Cederpanel
 extends JPanel
 implements ActionListener {
-	private final int number = 50;
+	private final int number = 2;
 	private static final String nameFile = "Cedernames.txt";
 
 	public static String[] names = new String[0];
@@ -73,7 +73,7 @@ implements ActionListener {
 	public void startSimulation() {
 		timer.start();
 	}
-
+/*
 	public void checkCollisions(Cederman man) {
 		if (world.check(man.getX(), man.getY()-1)){
 			makeBabies(man, man.getX(), man.getY()-1);
@@ -85,7 +85,7 @@ implements ActionListener {
 			makeBabies(man, man.getX()-1, man.getY());
 		}
 	}
-
+*/
 	public void makeBabies(Cederman person1, int x, int y){
 		Cederman person2 = world.getMan(x, y);
 		if(person1.canGiveBirth() && person2.canGiveBirth() && mayConsume(person1, person2)){
@@ -153,7 +153,12 @@ implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		long start = System.nanoTime();
+		//long start = System.nanoTime();
+		for (int i = 0; i < men.size(); i++){
+				world = men.get(i).doStuff(world);
+		}
+
+		/*
 		for (int i = 0 ; i < men.size() ; i++){
 			world = men.get(i).doStuff(0, 0, width, height, world);
 			if (Math.random() > 0.99999999 ) {
@@ -164,14 +169,14 @@ implements ActionListener {
 					men.remove(men.get(i));
 				}
 			}
-			checkCollisions(men.get(i));
-		}
-		long elapsedTime = System.nanoTime()-start;
-		long start2 = System.nanoTime();
+			//checkCollisions(men.get(i));
+		}*/
+		//long elapsedTime = System.nanoTime()-start;
+		//long start2 = System.nanoTime();
 		repaint();
-		long elapsedTime2 = System.nanoTime() -start2;
-		System.out.println("Do stuff and collisions: " + Long.toString(elapsedTime));
-		System.out.println("Repaint: " + Long.toString(elapsedTime2));
+		//long elapsedTime2 = System.nanoTime() -start2;
+		//System.out.println("Do stuff and collisions: " + Long.toString(elapsedTime));
+		//System.out.println("Repaint: " + Long.toString(elapsedTime2));
 	}
 
 	public void paintComponent(Graphics g) {
