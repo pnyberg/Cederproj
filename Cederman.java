@@ -8,10 +8,10 @@ public class Cederman {
 	private final int size = 1;
 	private final int step = 1;
 	private int direction;
-	private int x, y, age, babyCountdown, childrens, influence;
+	private int x, y, age, babyCountdown, childrens, influence, north, east, south, west;
 	private String name, goal;
 	private Color color;
-	private Cederman parent1, parent2, partner, familyLeader, heir;
+	private Cederman parent1, parent2, partner, familyLeader, heir, encounter;
 	private House home;
 
 	public Cederman(int x, int y, int direction, String name, Color color, Cederman parent1, Cederman parent2) {
@@ -24,10 +24,16 @@ public class Cederman {
 		this.parent2 = parent2;
 
 		this.heir = null;
+		this.encounter = null;
 		partner = null;
 		familyLeader = null;
 		influence = 0;
 		babyCountdown = 0;
+
+		north = 0;
+		east = 0;
+		south = 0;
+		west = 0;
 	}
 
 	public void death(){
@@ -35,15 +41,23 @@ public class Cederman {
 
 		}
 	}
-	public void move(int xMin, int yMin, int xMax, int yMax) {
+	public void move(int xMax, int yMax) {
 		if (this.direction == NORTH) {
-			this.y -= (y > 0 ? step : 0);
+			//System.out.println("NORTH");
+			//north++;
+			this.y -= (this.y > 0 ? step : 0);
 		} else if (this.direction == EAST) {
-			this.x += (x < xMax ? step : 0);
+			//System.out.println("EAST");
+			//east++;
+			this.x += (this.x < xMax ? step : 0);
 		} else if (this.direction == SOUTH) {
-			this.y += (y < yMax ? step : 0);
+			//System.out.println("SOUTH");
+			//south++;
+			this.y += (this.y < yMax ? step : 0);
 		} else {
-			this.x -= (x > 0 ? step : 0);
+			//System.out.println("WEST");
+			//west++;
+			this.x -= (this.x > 0 ? step : 0);
 		}
 		changeDirection();
 	}
@@ -52,8 +66,31 @@ public class Cederman {
 		String goal = "SOULSEARCH";
 		return goal;
 	}
+	private boolean lookAround(World world) {
+		if (world.check(this.x, this.y-1)){
+			this.encounter = world.getMan(this.x, this.y-1);
+			return true;
+		}else if(world.check(this.x+1, this.y)){
+			this.encounter = world.getMan(this.x+1, this.y);
+			return true;
+		}else if(world.check(this.x, this.y+1)){
+			this.encounter = world.getMan(this.x, this.y+1);
+			return true;
+		}else if(world.check(this.x-1, this.y)){
+			this.encounter = world.getMan(this.x+1, this.y);
+			return true;
+		}else{
+			this.encounter = null;
+			return false;
+		}
+	}
+	private void walk(World world){
+		world.remove(this.x, this.y);
+		move(world.getXMax(), world.getYMax());
+		world.place(this.x, this.y, this);
+	}
 	public World doStuff(World world) {
-
+		//System.out.println("NORTH: "+Integer.toString(north) +" EAST: "+ Integer.toString(east) + " SOUTH: " + Integer.toString(south) + " WEST: " + Integer.toString(west));
 		//Do i have a goal?
 		if (this.goal == null){
 			//Get new goal
@@ -66,6 +103,7 @@ public class Cederman {
 					//For this to work we need a food resource
 					break;
 				case "SLEEP":
+					//Try to get to a house
 					//Do nothing for 6-8 cycles
 					break;
 				case "RAVE":
@@ -74,15 +112,15 @@ public class Cederman {
 					break;
 				case "MATE":
 					//I WANT AN OFFSPRING
+					// if not married, walk around and try to find a partner
+					// else try to get to partner and do the naked tango
 					break;
 				case "BENDER":
 					//Random desigins that can end up with impranation with other then partner or killing frinds
 					break;
 				case "SOULSEARCH":
 					//Aimlessly wandering around kinda what is always done
-					world.remove(this.x, this.y);
-					move(0, 0, world.getXMax(), world.getYMax());
-					world.place(this.x, this.y, this);
+					walk(world);
 					break;
 				default:
 					this.goal = createGoal();
@@ -133,8 +171,8 @@ public class Cederman {
 
 	public void changeDirection() {
 		this.direction = ((int)(Math.random() * 4));
-		System.out.println(this.name);
-		System.out.println(direction);
+
+
 		if (partner != null && notCloseEnoughToPartner()) {
 			int xDir = 0;
 			int yDir = 0;
@@ -151,7 +189,6 @@ public class Cederman {
 			}
 
 			this.direction = (4 + yDir + (((int)(Math.random() * 10)) % 2) * xDir) % 4;
-			System.out.println(direction);
 		}
 	}
 

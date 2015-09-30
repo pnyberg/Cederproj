@@ -9,7 +9,7 @@ import javax.swing.Timer;
 public class Cederpanel
 extends JPanel
 implements ActionListener {
-	private final int number = 2;
+	private final int number = 50;
 	private static final String nameFile = "Cedernames.txt";
 
 	public static String[] names = new String[0];
@@ -155,7 +155,7 @@ implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		//long start = System.nanoTime();
 		for (int i = 0; i < men.size(); i++){
-				world = men.get(i).doStuff(world);
+			world = men.get(i).doStuff(world);
 		}
 
 		/*
